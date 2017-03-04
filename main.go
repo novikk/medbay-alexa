@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+
 	alexa "github.com/mikeflynn/go-alexa/skillserver"
 )
 
@@ -13,7 +15,7 @@ var Applications = map[string]interface{}{
 }
 
 func main() {
-	alexa.Run(Applications, "3000")
+	alexa.Run(Applications, os.Getenv("PORT"))
 }
 
 func GetPillsHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
