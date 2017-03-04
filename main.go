@@ -8,7 +8,7 @@ import (
 
 var Applications = map[string]interface{}{
 	"/echo/getpills": alexa.EchoApplication{ // Route
-		AppID:    "amzn1.ask.skill.254cb708-27ac-4d2b-98da-5763aff261b6", // Echo App ID from Amazon Dashboard
+		AppID:    "FakeEcho", // Echo App ID from Amazon Dashboard
 		OnIntent: GetPillsHandler,
 		OnLaunch: GetPillsHandler,
 	},
