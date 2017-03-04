@@ -24,5 +24,13 @@ func GetPillsHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
 		echoResp.OutputSpeech("I couldn't understand your symptoms!")
 		return
 	}
-	echoResp.OutputSpeech("What's up Adri mother fog r, you got a " + symptom + ", right?")
+
+	switch symptom {
+	case "headache":
+		echoResp.OutputSpeech("Please, take an ibuprofen for your headache")
+		break
+
+	default:
+		echoResp.OutputSpeech("I couldn't understand your symptoms!")
+	}
 }
