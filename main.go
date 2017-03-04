@@ -19,5 +19,5 @@ func main() {
 }
 
 func GetPillsHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
-	echoResp.OutputSpeech("Hello world from my new Echo test app!").Card("Hello World", "This is a test card.")
+	echoResp.OutputSpeech("What's up Adri mother fog r").Card("Wtf", "Is this")
 }
