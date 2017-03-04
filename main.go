@@ -29,7 +29,7 @@ func GetPillsHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
 	switch symptom {
 	case "headache":
 		echoResp.OutputSpeech("Please, take an ibuprofen for your headache")
-		http.Get("https://medbay.scalingo.io/events/add?event=ibuprofen")
+		http.Get("https://medbay.scalingo.io/api/events/add?event=ibuprofen")
 		break
 
 	default:
