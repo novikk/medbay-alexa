@@ -1,8 +1,12 @@
 package main
 
 import (
+	"fmt"
+	"io/ioutil"
 	"net/http"
 	"os"
+
+	"encoding/json"
 
 	alexa "github.com/mikeflynn/go-alexa/skillserver"
 )
@@ -19,6 +23,35 @@ func main() {
 	alexa.Run(Applications, os.Getenv("PORT"))
 }
 
+type EventAddResponse struct {
+	Status string `json:"status"`
+}
+
+func callMedbayApi(med, symptom string) string {
+	res, err := http.Get("https://medbay.scalingo.io/api/events/add?event=" + med)
+	if err != nil {
+		fmt.Println("Error calling medbay API")
+		return "Oops, something went wrong, please try again in a few seconds"
+	}
+
+	defer res.Body.Close()
+	var evRes EventAddResponse
+
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		fmt.Println("Error reading API response body")
+		return "Oops, something went wrong, please try again in a few seconds"
+	}
+
+	err = json.Unmarshal(body, &evRes)
+	if err != nil {
+		fmt.Println("Error unmarshaling API response")
+		return "Oops, something went wrong, please try again in a few seconds"
+	}
+
+	return "Please, take an " + med + " for your " + symptom
+}
+
 func GetPillsHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
 	symptom, err := echoReq.GetSlotValue("Symptom")
 	if err != nil {
@@ -28,8 +61,7 @@ func GetPillsHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
 
 	switch symptom {
 	case "headache":
-		echoResp.OutputSpeech("Please, take an ibuprofen for your headache")
-		http.Get("https://medbay.scalingo.io/api/events/add?event=ibuprofen")
+		echoResp.OutputSpeech(callMedbayApi("ibuprofen", "headache"))
 		break
 
 	default:
