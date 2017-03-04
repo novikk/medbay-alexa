@@ -19,5 +19,10 @@ func main() {
 }
 
 func GetPillsHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
-	echoResp.OutputSpeech("What's up Adri mother fog r").Card("Wtf", "Is this")
+	symptom, err := echoReq.GetSlotValue("Symptom")
+	if err != nil {
+		echoResp.OutputSpeech("I couldn't understand your symptoms!")
+		return
+	}
+	echoResp.OutputSpeech("What's up Adri mother fog r, you got a " + symptom + ", right?")
 }
