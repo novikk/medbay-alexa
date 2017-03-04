@@ -49,7 +49,11 @@ func callMedbayApi(med, symptom string) string {
 		return "Oops, something went wrong, please try again in a few seconds"
 	}
 
-	return "Please, take an " + med + " for your " + symptom
+	if evRes.Status == "error_cooldown" {
+		return "Please, wait before taking another " + med + ", you already took one very recently"
+	}
+
+	return "Please, take a " + med + " for your " + symptom
 }
 
 func GetPillsHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
