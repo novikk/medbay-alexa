@@ -67,11 +67,13 @@ func GetPillsHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
 	switch symptom {
 	case "headache":
 	case "head ache":
+	case "head":
 		echoResp.OutputSpeech(callMedbayApi("paracetamol", "headache"))
 		break
 
 	case "stomachache":
 	case "stomach ache":
+	case "stomach":
 		echoResp.OutputSpeech(callMedbayApi("omeprazol", "stomachache"))
 		break
 
