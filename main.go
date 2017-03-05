@@ -59,6 +59,7 @@ func callMedbayApi(med, symptom string) string {
 func GetPillsHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
 	symptom, err := echoReq.GetSlotValue("Symptom")
 	if err != nil {
+		fmt.Println("Not recognized symptom", symptom)
 		echoResp.OutputSpeech("I couldn't understand your symptoms!")
 		return
 	}
@@ -69,6 +70,7 @@ func GetPillsHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
 		break
 
 	case "stomachache":
+	case "stomach ache":
 		echoResp.OutputSpeech(callMedbayApi("omeprazol", "stomachache"))
 		break
 
