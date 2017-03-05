@@ -68,6 +68,10 @@ func GetPillsHandler(echoReq *alexa.EchoRequest, echoResp *alexa.EchoResponse) {
 		echoResp.OutputSpeech(callMedbayApi("paracetamol", "headache"))
 		break
 
+	case "stomachache":
+		echoResp.OutputSpeech(callMedbayApi("omeprazol", "stomachache"))
+		break
+
 	default:
 		echoResp.OutputSpeech("I couldn't understand your symptoms!")
 	}
